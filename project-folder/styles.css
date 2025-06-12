@@ -1,0 +1,324 @@
+/* ==========================================================================
+   Author Manager Stylesheet
+   ========================================================================== */
+
+/* === 1. SETUP & GLOBAL STYLES === */
+
+/* Import a clean, modern font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Define CSS variables for a consistent color palette and global settings.
+   This makes it easy to change the entire look of the app from one place. */
+:root {
+  --primary-color:      #4a69bd; /* A calming blue for headers and labels */
+  --success-color:      #1dd1a1; /* A vibrant teal/green for success actions */
+  --danger-color:       #ff6b6b; /* A softer red for delete/danger actions */
+  --warning-color:      #feca57; /* A pleasant yellow for edit/warning actions */
+  --light-color:        #ffffff; /* Primary background for cards */
+  --text-color:         #576574; /* Main text color for readability */
+  --background-color:   #f1f2f6; /* Page background color */
+  --border-color:       #dfe4ea; /* Subtle borders for tables and inputs */
+  --shadow-color:       rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  --font-family:        'Poppins', sans-serif; /* Global font */
+}
+
+/* A universal reset for better box model behavior */
+* {
+  box-sizing: border-box;
+}
+
+/* Base styles for the entire page */
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit browsers */
+  -moz-osx-font-smoothing: grayscale;   /* Smoother fonts on Firefox */
+}
+
+
+/* === 2. LAYOUT & STRUCTURE === */
+
+/* The main container to center the content and provide padding */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Header containing the title and "Add New" button */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-weight: 600;
+  color: #2f3542; /* A slightly darker text color for headings */
+}
+
+/* A "card" to contain the main content, giving it a floating effect */
+.content-card {
+  background-color: var(--light-color);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+
+/* === 3. TABLE STYLES === */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Table header styles */
+thead th {
+  font-weight: 600;
+  color: var(--primary-color);
+  padding: 15px;
+  border-bottom: 2px solid var(--border-color);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Table cell styles */
+tbody td {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle; /* Ensures button alignment is consistent */
+}
+
+/* Remove the bottom border from the very last row in the table */
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Zebra-striping for even rows to improve readability */
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* An interactive hover effect to highlight the current row */
+tbody tr:hover {
+  background-color: #eef2f7;
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* === 4. BUTTON STYLES === */
+
+/* Base button style */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: var(--light-color);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle hover effect to make buttons feel more interactive */
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Color modifiers for different button types */
+.btn-primary   { background-color: var(--primary-color); }
+.btn-success   { background-color: var(--success-color); }
+.btn-danger    { background-color: var(--danger-color); }
+.btn-secondary { background-color: #a4b0be; }
+.btn-edit      { background-color: var(--warning-color); color: #2f3542; }
+
+/* Spacing for buttons that are next to each other (like Edit/Delete) */
+.action-buttons button {
+  margin-right: 8px;
+}
+
+
+/* === 5. MODAL & FORM STYLES === */
+
+/* Full-screen overlay for the modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); /* Blurs the background content */
+}
+
+/* A simple fade-in and scale animation for the modal */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* The actual modal window content */
+.modal-content {
+  background-color: var(--light-color);
+  padding: 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 550px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+#form-title {
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #2f3542;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Form input and textarea fields */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Highlight effect when a form field is focused */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+}
+
+/* Container for form action buttons (Save, Cancel) */
+.form-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px; /* Creates space between the buttons */
+}
+
+
+/* === 6. LOADER === */
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey circle */
+  border-radius: 50%;
+  border-top: 5px solid var(--primary-color); /* Blue spinner part */
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 50px auto;
+  display: none; /* Hidden by default */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader.show {
+  display: block; /* Made visible by JavaScript */
+}
+
+
+/* === 7. RESPONSIVE DESIGN (FOR MOBILE) === */
+
+@media (max-width: 768px) {
+  /* This media query applies styles only on screens 768px wide or smaller */
+
+  /* --- The Trick to Responsive Tables ---
+     On small screens, a wide table with many columns is hard to read.
+     The strategy here is to stack the cells vertically. We do this by:
+     1. Hiding the original table header (`thead`).
+     2. Making each table row (`tr`) and cell (`td`) a full-width block.
+     3. Using a `::before` pseudo-element on each cell to act as the new label,
+        pulling its text from the `data-label` attribute in the HTML.
+  */
+
+  /* 1. Hide the original table headers */
+  thead {
+    display: none;
+  }
+
+  /* 2. Make rows and cells stack vertically */
+  tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Disable the hover zoom effect on touch devices */
+  tbody tr:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  td {
+    text-align: right;
+    padding-left: 50%; /* Create space on the left for the label */
+    position: relative;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  td:last-child {
+    border-bottom: none;
+  }
+
+  /* 3. Create and position the new labels */
+  td::before {
+    content: attr(data-label); /* Pulls text from e.g., <td data-label="Name"> */
+    position: absolute;
+    left: 15px;
+    width: calc(50% - 30px);
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  /* Special styling for the action buttons cell */
+  .action-buttons {
+    text-align: center;
+    padding-left: 15px; /* Reset padding for this cell */
+  }
+
+  .action-buttons::before {
+    display: none; /* The "Actions" label is not needed */
+  }
+}
